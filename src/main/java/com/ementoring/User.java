@@ -4,13 +4,13 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
-	private int userType;
+	private String role;
 	
-	public User(String name, String email, String password, int userType) {
+	public User(String name, String email, String password, String role) {
 		this.name = name;
 		this.password = password;
 		this.email = email;
-		this.userType = userType;
+		this.role = role;
 	}
 	
 	/**
@@ -42,12 +42,12 @@ public class User {
 		return password;
 	}
 	
-//	public void setUserType(int newUserType) {
-//		userType = newUserType;
+//	public void setRole(String newRole) {
+//		role = newRole;
 //	}
 	
-	public int getUserType() {
-		return userType;
+	public String getRole() {
+		return role;
 	}
 	
 	

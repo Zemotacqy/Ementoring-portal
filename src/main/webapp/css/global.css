@@ -1,0 +1,30 @@
+@charset "UTF-8";
+.header_top {
+	background-color: #510d51; 
+	margin: 0;
+	position: fixed;
+	width: 100%;
+	height: 3.5rem;
+	padding: 0;
+	display: flex;
+	justify-content: space-between;
+	padding: 1rem;
+}
+
+.header_top h1{
+	font-size: 2rem;
+	color: #FFF;
+}
+
+.header_items {
+	display: flex;
+	align-items: center;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.header_items li {
+	margin: 0 1rem;
+	color: #FFF;
+}

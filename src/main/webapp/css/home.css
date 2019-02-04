@@ -1,4 +1,14 @@
 @charset "UTF-8";
 body {
-	background: #F00;
+	margin : 0;
+	padding: 0;
+	top: 0;
+	left: 0;
+	font-family: sans-serif;
+	background: #dddddd;
+}
+
+
+.main-content {
+	margin: 3.5rem 0 0 0;
 }

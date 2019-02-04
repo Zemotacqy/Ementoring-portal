@@ -30,7 +30,7 @@ public class DBconnect {
 			rs = st.executeQuery(query);
 			System.out.println("Records from User table Fetched :");
 			while(rs.next()) {
-				User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getInt("type"));
+				User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("role"));
 				userList.add(user);
 			}
 		} catch(Exception ex) {
@@ -42,7 +42,7 @@ public class DBconnect {
 	}
 	
 	public void saveUser(User user) throws SQLException {
-		String query = "INSERT INTO `Users` (`name`, `email`, `password`, `type`) VALUES ('" + user.getName() + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + user.getUserType() + "')";
+		String query = "INSERT INTO `Users` (`name`, `email`, `password`, `role`) VALUES ('" + user.getName() + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + user.getRole() + "')";
 		int status = st.executeUpdate(query);
 		System.out.println("User saved with status: " + status);
 	}
@@ -54,7 +54,7 @@ public class DBconnect {
 			rs = st.executeQuery(query);
 			System.out.println("Records from User table Fetched :");
 			while(rs.next()) {
-				User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getInt("type"));
+				User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("role"));
 				userList.add(user);
 			}
 		} catch(Exception ex) {

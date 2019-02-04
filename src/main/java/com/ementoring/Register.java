@@ -19,15 +19,15 @@ public class Register extends HttpServlet{
 		String name = req.getParameter("name");
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
-		int userType = Integer.parseInt(req.getParameter("userType"));
-		
+		String role = req.getParameter("role");
+		System.out.println(name + ' ' + email + ' ' + password + ' ' + role);
 		try {
 			if(service.userFound(email)) {
 				req.setAttribute("success", true);
 				req.setAttribute("msg", "User with the Email: " + email.toString() + " already exists!!");
 				req.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(req, res);
 			} else {
-				User user = new User(name, email, password, userType);
+				User user = new User(name, email, password, role);
 				db.saveUser(user);
 				req.setAttribute("success", false);
 				req.setAttribute("msg", "User is registered Successfully");

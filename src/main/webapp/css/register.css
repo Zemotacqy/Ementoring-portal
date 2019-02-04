@@ -1,0 +1,44 @@
+@charset "UTF-8";
+body {
+	margin : 0;
+	padding: 0;
+	top: 0;
+	left: 0;
+	font-family: sans-serif;
+	background: #dddddd;
+}
+
+
+.main-content {
+	margin: 3.5rem 0 0 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.register-box {
+	width: 40rem;
+	max-width: 80%;
+	padding: 2rem;
+	margin: 0;
+}
+
+.form-group {
+	display: flex;
+	align-items: center;
+}
+
+.form-group label,
+.form-group input {
+	flex : 1;
+}
+
+.role-selector {
+	display: flex;
+	justify-content: center;
+}
+
+.role-option {
+	flex: 1;
+	margin-bottom: 1rem;
+}
