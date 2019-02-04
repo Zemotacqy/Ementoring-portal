@@ -64,4 +64,11 @@ public class DBconnect {
 	    }
 		return userList;
 	}
+	
+	public void saveQuestion(Question q) throws SQLException {
+		java.sql.Date sqlDate = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+		String query = "INSERT INTO Questions (userEmail, question, createdAt) VALUES ('" + q.getOwnerEmail() + "', '" + q.getQuestion() + "', '" + sqlDate + "')";
+		int status = st.executeUpdate(query);
+		System.out.println("New Question added to database with status " + status);
+	}
 }

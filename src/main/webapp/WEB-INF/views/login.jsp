@@ -33,6 +33,7 @@
                         <label for="password" class="text-center">Password</label>
                         <input type="password" placeholder="Enter Password" name="password" id="password" required></input>
                     </div>
+                    <input type="hidden" name="purpose" id="purpose" value="login"></input>
                    	<div class="text-center"><input type="submit" class="btn btn-primary" value="Sign In"/></div>
                  	<small id="loginHelp" class="form-text text-center text-muted">New to E-Mentoring platform? <a href="/register">Sign up here</a></small>
 				</form>
