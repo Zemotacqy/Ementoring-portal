@@ -1,4 +1,4 @@
-const BASE_URL = "localhost:8080";
+const BASE_URL = "http://localhost:8080";
 $( document ).ready(function() {
    const name =  $("#hidden_name").val();
    const role =  $("#hidden_role").val();
@@ -33,4 +33,27 @@ $( document ).ready(function() {
    
    $("#addQuestion").find("#email").val(email);
    $("#addQuestion").find("#password").val(password);
+   
+   /* Display all the Questions */
+   $.ajax({
+		type: 'POST',
+	    url: BASE_URL + '/dashboard',
+	    data: {
+	    	email: localStorage.getItem("email"),
+	    	password: localStorage.getItem("password"),
+	    	purpose: "fetchQuestionList"
+	    }
+	})
+	.done((result) => {
+		console.log(result);
+		result.forEach((q) => {
+			const qitem = '<div class="question-item"><div class="title not-border" onclick="toggleBox(this)"><div class="arrow"></div><div class="title-text">' + q.question + '</div><div class="question-credential">'+ q.userEmail +' | ' + q.createdAt.toLocaleString() + '</div></div><div class="content"><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus eum tempora sunt beatae, voluptatibus, iste vero excepturi aspernatur tenetur pariatur qui quaerat dolorum maxime dolor voluptatem earum asperiores, enim quo.</p></div></div>';
+			$(".questions-list").append(qitem);
+		});
+	})
+	.fail(err => {
+	  console.log(err);
+	});
+   
+   
 });

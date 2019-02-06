@@ -10,12 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 @WebServlet(urlPatterns="/dashboard")
 public class Dashboard extends HttpServlet {
 	
 	public String BASE_URL = "http://localhost:8080";
 	private UserValidationService service = new UserValidationService();
 	private DBconnect db = new DBconnect();
+	protected DashboardHelpers helper = new DashboardHelpers();
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String email = req.getParameter("email");
@@ -31,12 +34,11 @@ public class Dashboard extends HttpServlet {
 						req.setAttribute("password", user.get(0).getPassword());
 						req.setAttribute("role", user.get(0).getRole());
 						if(purpose.equals("login")) {
-							req.getRequestDispatcher("WEB-INF/views/dashboard.jsp").forward(req, res);
+							helper.login(req, res);
 						} else if(purpose.equals("addQuestion")) {
-							String question = req.getParameter("question");
-							Question q = new Question(question, email);
-							db.saveQuestion(q);
-							req.getRequestDispatcher("WEB-INF/views/dashboard.jsp").forward(req, res);
+							helper.addQuestion(req, res, email);
+						} else if(purpose.equals("fetchQuestionList")) {
+							helper.fetchQuestionList(req, res);
 						}
 						
 					} else {
@@ -53,4 +55,6 @@ public class Dashboard extends HttpServlet {
 		}
 		 
 	}
+	
+	
 }

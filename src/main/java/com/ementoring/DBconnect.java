@@ -71,4 +71,23 @@ public class DBconnect {
 		int status = st.executeUpdate(query);
 		System.out.println("New Question added to database with status " + status);
 	}
+	
+	public ArrayList<Question> getQuestionList() throws SQLException {
+		ArrayList<Question> quesList = new ArrayList<>();
+		try {
+			String query = "SELECT * from Questions";
+			rs = st.executeQuery(query);
+			System.out.println("Records from Question table Fetched :");
+			while(rs.next()) {
+				Question q = new Question(rs.getString("question"), rs.getString("userEmail"));
+				q.setCreatedAt((rs.getString("createdAt").toString()));
+				quesList.add(q);
+			}
+		} catch(Exception ex) {
+			System.out.println("error: " + ex);
+		} finally {
+	        if(rs != null) rs.close();
+	    }
+		return quesList;
+	}
 }

@@ -78,11 +78,17 @@
 				  </div>
 				</div>
 			</div>
-			
+			<div class="questions-list text-center">
+			</div>
 		</section>
 	</main>
 <jsp:include page="./lib/js.jsp" />
 <!-- Custom js files -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/dashboard.js"></script>
+<script>
+function toggleBox(questionSection){
+	   questionSection.classList.toggle('opened');
+}
+</script>
 </body>
 </html>

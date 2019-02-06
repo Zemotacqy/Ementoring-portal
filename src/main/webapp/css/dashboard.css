@@ -81,3 +81,77 @@ body {
 	border-radius: 50%;
 }
 
+/* Questions */
+.questions-list {
+	margin: 1rem 1rem;
+	width: calc(100vw - 18rem);
+	padding: 2rem;
+}
+
+.content{
+  background-color: #bdc3c7;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .6s ease-out;
+  border-radius: 10px;
+}
+
+.content p {
+  padding: 1rem;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.title {
+  font-size: 20px;
+  padding: 1rem;
+  color: white;
+  background-color: #000;
+  border-radius: 10px;
+}
+
+.title-text {
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 0 0 0 2rem;
+}
+
+.title:hover{
+  cursor: pointer;
+  background: #2A2A2A;
+}
+
+.title:not(.not-border){
+  border-top: solid white 1px;
+}
+
+.opened + .content{
+  max-height: 100vh;
+  transition: max-height 1.2s ease-out;
+}
+
+.arrow{
+  position: absolute;
+  padding: 0;
+  margin: 0.25rem;
+  border-top: 10px solid transparent;
+  border-right: 0 solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid white;
+  transition: .6s ease-in;
+}
+
+.opened .arrow{
+  transform: rotate(90deg) ;
+}
+
+.question-credential {
+	font-size: 12px;
+	position: absolute;
+	right: 4rem;
+}
+
+.question-item {
+	margin: 0.5rem 0;
+}
+
