@@ -6,6 +6,7 @@ public class Question {
 	private String question;
 	private String userEmail;
 	private String createdAt;
+	private int qid;
 	
 	public Question(String newQuestion, String newUserEmail) {
 		question = newQuestion;
@@ -30,6 +31,14 @@ public class Question {
 
 	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
+	}
+	
+	public void setQid(int newQid) {
+		qid = newQid;
+	}
+	
+	public int getQid() {
+		return qid;
 	}
 	
 }

@@ -100,6 +100,7 @@ body {
   padding: 1rem;
   text-align: justify;
   text-justify: inter-word;
+  margin: 0;
 }
 
 .title {
@@ -154,4 +155,11 @@ body {
 .question-item {
 	margin: 0.5rem 0;
 }
+
+.answer-credential {
+	font-size: 12px;
+	position: relative;
+	right: 4rem;
+}
+
 

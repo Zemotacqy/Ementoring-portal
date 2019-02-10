@@ -81,6 +81,7 @@ public class DBconnect {
 			while(rs.next()) {
 				Question q = new Question(rs.getString("question"), rs.getString("userEmail"));
 				q.setCreatedAt((rs.getString("createdAt").toString()));
+				q.setQid(rs.getInt("qid"));
 				quesList.add(q);
 			}
 		} catch(Exception ex) {
@@ -89,5 +90,27 @@ public class DBconnect {
 	        if(rs != null) rs.close();
 	    }
 		return quesList;
+	}
+	
+	public ArrayList<Answer> getAnswer(int QID) throws SQLException {
+		ArrayList<Answer> ansList = new ArrayList<>();
+		try {
+			String query = "SELECT aid, answer, qid, writtenAt, name FROM Answers,Users WHERE qid = "+ QID +" AND email = Answers.writerEmail";
+			rs = st.executeQuery(query);
+			System.out.println("Records from Answer table fetched: ");
+			if (!rs.isBeforeFirst() ) {    
+			    return ansList;
+			} 
+			while(rs.next()) {
+				Answer ans = new Answer(rs.getInt("aid"), rs.getInt("qid"), rs.getString("answer"), rs.getString("name"));
+				ans.setWrittenAt((rs.getString("writtenAt").toString()));
+				ansList.add(ans);
+			}
+		} catch(Exception ex) {
+			System.out.println("error: " + ex);
+		} finally {
+			if(rs != null) rs.close();
+		}
+		return ansList;
 	}
 }

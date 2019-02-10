@@ -42,4 +42,17 @@ public class DashboardHelpers {
 	    res.setCharacterEncoding("UTF-8");
 	    res.getWriter().write(json);
 	}
+	
+	public void fetchAnswer(HttpServletRequest req, HttpServletResponse res, int QID) throws SQLException, IOException {
+		ArrayList<Answer> ans = db.getAnswer(QID);
+		if(ans.isEmpty()) {
+			Answer a = new Answer(0, 0, "", "");
+			ans.add(a);
+		} 
+		String json = new Gson().toJson(ans);
+		res.setContentType("application/json");
+	    res.setCharacterEncoding("UTF-8");
+	    res.getWriter().write(json);
+	}
+
 }

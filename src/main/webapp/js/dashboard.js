@@ -34,6 +34,27 @@ $( document ).ready(function() {
    $("#addQuestion").find("#email").val(email);
    $("#addQuestion").find("#password").val(password);
    
+   /* Get the Answer for the qid*/
+   function fetchAnswer(qid){
+	   $.ajax({
+		   type: 'POST',
+		   url: BASE_URL + '/dashboard',
+		   data: {
+			   qid: qid,
+			   email: localStorage.getItem("email"),
+			   password: localStorage.getItem("password"),
+			   purpose: "fetchAnswer"
+		   }
+	   })
+	   .done((result) => {
+		   console.log(result);
+	   })
+	   .fail(err => {
+		   console.log(err);
+		});
+   }
+   
+   
    /* Display all the Questions */
    $.ajax({
 		type: 'POST',
@@ -47,13 +68,41 @@ $( document ).ready(function() {
 	.done((result) => {
 		console.log(result);
 		result.forEach((q) => {
-			const qitem = '<div class="question-item"><div class="title not-border" onclick="toggleBox(this)"><div class="arrow"></div><div class="title-text">' + q.question + '</div><div class="question-credential">'+ q.userEmail +' | ' + q.createdAt.toLocaleString() + '</div></div><div class="content"><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus eum tempora sunt beatae, voluptatibus, iste vero excepturi aspernatur tenetur pariatur qui quaerat dolorum maxime dolor voluptatem earum asperiores, enim quo.</p></div></div>';
-			$(".questions-list").append(qitem);
+			const start = '<div class="question-item"><div class="title not-border" onclick="toggleBox(this)"><div class="arrow"></div>';
+			const ques = '<div class="title-text">' + q.question + '</div><div class="question-credential">'+ q.userEmail +' | ' + q.createdAt.toLocaleString() + '</div></div>';
+			const end = '</div>';
+			$.ajax({
+				   type: 'POST',
+				   url: BASE_URL + '/dashboard',
+				   data: {
+					   qid: q.qid,
+					   email: localStorage.getItem("email"),
+					   password: localStorage.getItem("password"),
+					   purpose: "fetchAnswer"
+				   }
+			   })
+			   .done((result) => {
+				   console.log(result[0]);
+				   let answerContent, answerCredential = "";
+				   if(result[0].aid>0 && result[0]){
+					   answerContent = result[0].answer;
+					   answerCredential = '<div class="answer-credential">Contributed By: ' + result[0].writer + ' | ' + result[0].writtenAt + '<div>';  
+				   } else {
+					   answerContent = "No Answers written";
+				   }
+				   const content = '<div class="content"><p>'+ answerContent +'</p>'+ answerCredential +'</div>';
+				   const qitem = start + ques + content + end;
+				   $(".questions-list").append(qitem);
+			   })
+			   .fail(err => {
+				   console.log(err);
+				});
 		});
 	})
 	.fail(err => {
 	  console.log(err);
 	});
+   // '<div class="content"><p> b maxime dolor voluptatem earum asperiores, enim quo.</p></div>';
    
    
 });
