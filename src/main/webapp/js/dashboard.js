@@ -82,7 +82,7 @@ $( document ).ready(function() {
 				   console.log(result[0], q.qid);
 				   let answerContent, answerCredential = "", writeAnswer = "";
 				   if(result[0].writerEmail!==localStorage.getItem("email")){
-					   writeAnswer = '<button class="btn btn-success writeAnswer-button" data-toggle="modal" data-target="#addQuestionModal">Write an Answer</button>';
+					   writeAnswer = '<button class="btn btn-success writeAnswer" onClick="selectQuestion(this, '+ q.qid +', \'' +q.question +'\')" data-toggle="modal" data-target="#addAnswerModal">Write an Answer</button>';
 				   }
 				   if(result[0].aid>0 && result[0]){
 					   answerContent = result[0].answer;
@@ -106,37 +106,11 @@ $( document ).ready(function() {
 	.fail(err => {
 	  console.log(err);
 	});
-   // '<div class="content"><p> b maxime dolor voluptatem earum asperiores, enim quo.</p></div>';
+   
+   
    
    
 });
 //< Answer modal>
 //
 //
-//<div class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-//<div class="modal-dialog" role="document">
-//  <div class="modal-content">
-//    <div class="modal-header">
-//      <h5 class="modal-title" id="exampleModalLabel">New Question</h5>
-//      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-//        <span aria-hidden="true">&times;</span>
-//      </button>
-//    </div>
-//    <form action="/dashboard" method="post" id="addQuestion">
-//	      <div class="modal-body">
-//				<div><label for="question" class="text-center">Type your Answer here </label></div>
-//				<div class="textarea-question"><textarea placeholder="Enter Your question" rows="5" cols="50" name="answer" id="answer" required></textarea></div>
-//				<input type="hidden" name="email" id="email"></input>
-//				<input type="hidden" name="password" id="password"></input>
-//				<input type="hidden" name="purpose" id="purpose" value="addAnswer"></input>
-//				<input type="hidden" name="qid" id="qid" value=""></input>
-//				<input type="hidden" name="writerEmail" id="writerEmail" value=""></input>
-//	      </div>
-//	      <div class="modal-footer">
-//	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-//	        <input type="submit" class="btn btn-primary" value="Add Question"/>
-//	      </div>
-//    </form>
-//  </div>
-//</div>
-//</div>

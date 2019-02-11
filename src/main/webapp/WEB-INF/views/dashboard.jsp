@@ -77,7 +77,34 @@
 				    </div>
 				  </div>
 				</div>
-				
+				<!-- Answer Modal -->
+				<div class="modal fade" id="addAnswerModal" tabindex="-1" role="dialog" aria-labelledby="answerQuestion" aria-hidden="true">
+					<div class="modal-dialog modal-lg" role="document">
+					  <div class="modal-content">
+					    <div class="modal-header">
+					      <h5 class="modal-title" id="answerQuestion"></h5>
+					      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					        <span aria-hidden="true">&times;</span>
+					      </button>
+					    </div>
+					    <form action="/dashboard" method="post" id="addQuestion">
+						      <div class="modal-body">
+									<div><label for="question" class="text-center">Type your Answer here </label></div>
+									<div class="textarea-question"><textarea placeholder="Enter Your question" rows="15" cols="75" name="answer" id="answer" required></textarea></div>
+									<input type="hidden" name="email" id="email"></input>
+									<input type="hidden" name="password" id="password"></input>
+									<input type="hidden" name="purpose" id="purpose" value="addAnswer"></input>
+									<input type="hidden" name="qid" id="qid" value=""></input>
+									<input type="hidden" name="writerEmail" id="writerEmail" value=""></input>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						        <input type="submit" class="btn btn-primary" value="Add Answer"/>
+						      </div>
+					    </form>
+					  </div>
+					</div>
+				</div>
 				
 			</div>
 			<div class="questions-list text-center">
@@ -88,9 +115,11 @@
 <!-- Custom js files -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/dashboard.js"></script>
 <script>
-function toggleBox(questionSection, qid){
+function toggleBox(questionSection){
 	   questionSection.classList.toggle('opened');
-	   localStorage.setItem("selectedQuestion", qid);
+}
+function selectQuestion(buttonSelected, QID, Question) {
+	   $("#answerQuestion").html(Question);
 }
 </script>
 </body>
