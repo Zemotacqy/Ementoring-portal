@@ -68,9 +68,6 @@ $( document ).ready(function() {
 	.done((result) => {
 		console.log(result);
 		result.forEach((q) => {
-			const start = '<div class="question-item"><div class="title not-border" onclick="toggleBox(this)"><div class="arrow"></div>';
-			const ques = '<div class="title-text">' + q.question + '</div><div class="question-credential">'+ q.userEmail +' | ' + q.createdAt.toLocaleString() + '</div></div>';
-			const end = '</div>';
 			$.ajax({
 				   type: 'POST',
 				   url: BASE_URL + '/dashboard',
@@ -82,15 +79,22 @@ $( document ).ready(function() {
 				   }
 			   })
 			   .done((result) => {
-				   console.log(result[0]);
-				   let answerContent, answerCredential = "";
+				   console.log(result[0], q.qid);
+				   let answerContent, answerCredential = "", writeAnswer = "";
+				   if(result[0].writerEmail!==localStorage.getItem("email")){
+					   writeAnswer = '<button class="btn btn-success writeAnswer-button" data-toggle="modal" data-target="#addQuestionModal">Write an Answer</button>';
+				   }
 				   if(result[0].aid>0 && result[0]){
 					   answerContent = result[0].answer;
 					   answerCredential = '<div class="answer-credential">Contributed By: ' + result[0].writer + ' | ' + result[0].writtenAt + '<div>';  
 				   } else {
-					   answerContent = "No Answers written";
+					   answerContent = '<p class="text-center">No Answers written</p>';
+					   answerCredential = "";
 				   }
-				   const content = '<div class="content"><p>'+ answerContent +'</p>'+ answerCredential +'</div>';
+				   const start = '<div class="question-item"><div class="title not-border" onclick="toggleBox(this, '+ q.qid +')"><div class="arrow"></div>';
+				   const ques = '<div class="title-text">' + q.question + '</div><div class="question-credential">'+ q.userEmail +' | ' + q.createdAt.toLocaleString() + '</div></div>';
+				   const end = '</div>';
+				   const content = '<div class="content"><p>'+ answerContent +'</p>'+ answerCredential + '<div>' + writeAnswer + '</div' +'</div>';
 				   const qitem = start + ques + content + end;
 				   $(".questions-list").append(qitem);
 			   })
@@ -106,3 +110,33 @@ $( document ).ready(function() {
    
    
 });
+//< Answer modal>
+//
+//
+//<div class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+//<div class="modal-dialog" role="document">
+//  <div class="modal-content">
+//    <div class="modal-header">
+//      <h5 class="modal-title" id="exampleModalLabel">New Question</h5>
+//      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+//        <span aria-hidden="true">&times;</span>
+//      </button>
+//    </div>
+//    <form action="/dashboard" method="post" id="addQuestion">
+//	      <div class="modal-body">
+//				<div><label for="question" class="text-center">Type your Answer here </label></div>
+//				<div class="textarea-question"><textarea placeholder="Enter Your question" rows="5" cols="50" name="answer" id="answer" required></textarea></div>
+//				<input type="hidden" name="email" id="email"></input>
+//				<input type="hidden" name="password" id="password"></input>
+//				<input type="hidden" name="purpose" id="purpose" value="addAnswer"></input>
+//				<input type="hidden" name="qid" id="qid" value=""></input>
+//				<input type="hidden" name="writerEmail" id="writerEmail" value=""></input>
+//	      </div>
+//	      <div class="modal-footer">
+//	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+//	        <input type="submit" class="btn btn-primary" value="Add Question"/>
+//	      </div>
+//    </form>
+//  </div>
+//</div>
+//</div>

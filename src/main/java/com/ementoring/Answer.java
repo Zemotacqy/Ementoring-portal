@@ -6,12 +6,14 @@ public class Answer {
 	private int qid;
 	private String writtenAt;
 	private String writer;
+	private String writerEmail;
 	
-	public Answer(int aid, int qid, String answer, String writer) {
+	public Answer(int aid, int qid, String answer, String writer, String writerEmail) {
 		this.aid = aid;
 		this.qid = qid;
 		this.answer = answer;
 		this.writer = writer;
+		this.writerEmail = writerEmail;
 	}
 	
 	public int getAid() {
@@ -53,5 +55,13 @@ public class Answer {
 
 	public void setWrittenAt(String writtenAt) {
 		this.writtenAt = writtenAt;
+	}
+
+	public String getWriterEmail() {
+		return writerEmail;
+	}
+
+	public void setWriterEmail(String writerEmail) {
+		this.writerEmail = writerEmail;
 	}
 }

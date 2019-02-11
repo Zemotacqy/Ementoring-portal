@@ -95,14 +95,14 @@ public class DBconnect {
 	public ArrayList<Answer> getAnswer(int QID) throws SQLException {
 		ArrayList<Answer> ansList = new ArrayList<>();
 		try {
-			String query = "SELECT aid, answer, qid, writtenAt, name FROM Answers,Users WHERE qid = "+ QID +" AND email = Answers.writerEmail";
+			String query = "SELECT aid, answer, qid, writtenAt, name, writerEmail FROM Answers,Users WHERE qid = "+ QID +" AND email = Answers.writerEmail";
 			rs = st.executeQuery(query);
 			System.out.println("Records from Answer table fetched: ");
 			if (!rs.isBeforeFirst() ) {    
 			    return ansList;
 			} 
 			while(rs.next()) {
-				Answer ans = new Answer(rs.getInt("aid"), rs.getInt("qid"), rs.getString("answer"), rs.getString("name"));
+				Answer ans = new Answer(rs.getInt("aid"), rs.getInt("qid"), rs.getString("answer"), rs.getString("name"), rs.getString("writerEmail"));
 				ans.setWrittenAt((rs.getString("writtenAt").toString()));
 				ansList.add(ans);
 			}

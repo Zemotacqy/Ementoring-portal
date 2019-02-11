@@ -51,7 +51,7 @@
 				<div><img class="question-img" src="${pageContext.request.contextPath}/img/qmark.png" /></div>
 				<br>
 				<button class="btn btn-success" data-toggle="modal" data-target="#addQuestionModal" id="add-question">Add Question</button>
-				<!-- Modal -->
+				<!-- Add Question Modal -->
 				<div class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">
@@ -77,6 +77,8 @@
 				    </div>
 				  </div>
 				</div>
+				
+				
 			</div>
 			<div class="questions-list text-center">
 			</div>
@@ -86,8 +88,9 @@
 <!-- Custom js files -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/dashboard.js"></script>
 <script>
-function toggleBox(questionSection){
+function toggleBox(questionSection, qid){
 	   questionSection.classList.toggle('opened');
+	   localStorage.setItem("selectedQuestion", qid);
 }
 </script>
 </body>
