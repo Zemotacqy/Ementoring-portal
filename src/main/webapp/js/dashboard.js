@@ -80,13 +80,14 @@ $( document ).ready(function() {
 			   })
 			   .done((result) => {
 				   console.log(result[0], q.qid);
+				   let viewAll = '<a href="#" data-toggle="modal" id="viewAllAnswer" onClick="viewAllAnswer(this, '+ q.qid +', \'' +q.question +'\')" data-target="#allAnswerModal"><p>View All Answers</p></a>';
 				   let answerContent, answerCredential = "", writeAnswer = "";
 				   if(result[0].writerEmail!==localStorage.getItem("email")){
 					   writeAnswer = '<button class="btn btn-success writeAnswer" onClick="selectQuestion(this, '+ q.qid +', \'' +q.question +'\')" data-toggle="modal" data-target="#addAnswerModal">Write an Answer</button>';
 				   }
 				   if(result[0].aid>0 && result[0]){
 					   answerContent = result[0].answer;
-					   answerCredential = '<div class="answer-credential">Contributed By: ' + result[0].writer + ' | ' + result[0].writtenAt + '<div>';  
+					   answerCredential = '<div class="answer-credential text-center">Contributed By: ' + result[0].writer + ' | ' + result[0].writtenAt + '<div>';  
 				   } else {
 					   answerContent = '<p class="text-center">No Answers written</p>';
 					   answerCredential = "";
@@ -94,7 +95,7 @@ $( document ).ready(function() {
 				   const start = '<div class="question-item"><div class="title not-border" onclick="toggleBox(this, '+ q.qid +')"><div class="arrow"></div>';
 				   const ques = '<div class="title-text">' + q.question + '</div><div class="question-credential">'+ q.userEmail +' | ' + q.createdAt.toLocaleString() + '</div></div>';
 				   const end = '</div>';
-				   const content = '<div class="content"><p>'+ answerContent +'</p>'+ answerCredential + '<div>' + writeAnswer + '</div' +'</div>';
+				   const content = '<div class="content"><p>'+ answerContent +'</p>'+ viewAll + answerCredential + '<div>' + writeAnswer + '</div' +'</div>';
 				   const qitem = start + ques + content + end;
 				   $(".questions-list").append(qitem);
 			   })
@@ -105,12 +106,5 @@ $( document ).ready(function() {
 	})
 	.fail(err => {
 	  console.log(err);
-	});
-   
-   
-   
-   
+	});   
 });
-//< Answer modal>
-//
-//

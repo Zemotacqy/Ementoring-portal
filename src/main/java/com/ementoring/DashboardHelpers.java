@@ -3,6 +3,7 @@ package com.ementoring;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -51,10 +52,30 @@ public class DashboardHelpers {
 		} 
 		
 		String json = new Gson().toJson(ans);
-		System.out.println(json);
 		res.setContentType("application/json");
 	    res.setCharacterEncoding("UTF-8");
 	    res.getWriter().write(json);
 	}
-
+	
+	public void addAnswer(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		String answer = req.getParameter("answer");
+		String qid = req.getParameter("qid");
+		String writerEmail = email;
+		System.out.println("answer: " + answer + " qid: " + qid + " writerEmail: " + writerEmail );
+		db.saveAnswer(answer, Integer.parseInt(qid), writerEmail);
+		req.getRequestDispatcher("WEB-INF/views/dashboard.jsp").forward(req, res);
+	}
+	
+	public void viewAllAnswer(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		String qid = req.getParameter("qid");
+		ArrayList<AnswerQuestion> ansList = db.getAllAnswerQuestion(Integer.parseInt(qid));
+		if(ansList.isEmpty()) {
+			AnswerQuestion aq = new AnswerQuestion(0, "", "", 0, 0, "", "", "", "");
+			ansList.add(aq);
+		} 
+		String json = new Gson().toJson(ansList);
+		res.setContentType("application/json");
+	    res.setCharacterEncoding("UTF-8");
+	    res.getWriter().write(json);
+	}
 }

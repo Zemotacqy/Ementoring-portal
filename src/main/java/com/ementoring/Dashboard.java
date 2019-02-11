@@ -42,6 +42,10 @@ public class Dashboard extends HttpServlet {
 						} else if(purpose.equals("fetchAnswer")) {
 							int QID = Integer.parseInt(req.getParameter("qid"));
 							helper.fetchAnswer(req, res, QID);
+						} else if(purpose.equals("addAnswer")) {
+							helper.addAnswer(req, res, email);
+						} else if(purpose.equals("allAnswerQuestion")) {
+							helper.viewAllAnswer(req, res, email);
 						}
 						
 					} else {

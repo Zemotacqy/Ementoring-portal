@@ -87,15 +87,15 @@
 					        <span aria-hidden="true">&times;</span>
 					      </button>
 					    </div>
-					    <form action="/dashboard" method="post" id="addQuestion">
+					    <form action="/dashboard" method="post" id="addAnswer">
 						      <div class="modal-body">
 									<div><label for="question" class="text-center">Type your Answer here </label></div>
 									<div class="textarea-question"><textarea placeholder="Enter Your question" rows="15" cols="75" name="answer" id="answer" required></textarea></div>
 									<input type="hidden" name="email" id="email"></input>
 									<input type="hidden" name="password" id="password"></input>
 									<input type="hidden" name="purpose" id="purpose" value="addAnswer"></input>
-									<input type="hidden" name="qid" id="qid" value=""></input>
-									<input type="hidden" name="writerEmail" id="writerEmail" value=""></input>
+									<input type="hidden" name="qid" id="qid"></input>
+									<input type="hidden" name="writerEmail" id="writerEmail"></input>
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -105,7 +105,25 @@
 					  </div>
 					</div>
 				</div>
-				
+				<!-- ALL Answer Modal -->
+				<div class="modal fade" id="allAnswerModal" tabindex="-1" role="dialog" aria-labelledby="allAnswerQuestion" aria-hidden="true">
+					<div class="modal-dialog modal-lg" role="document">
+					  <div class="modal-content">
+					    <div class="modal-header">
+					      <h5 class="modal-title" id="allAnswerQuestion"></h5>
+					      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					        <span aria-hidden="true">&times;</span>
+					      </button>
+					    </div>
+						<div class="modal-body">
+						</div>
+						<div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						</div>
+					    
+					  </div>
+					</div>
+				</div>
 			</div>
 			<div class="questions-list text-center">
 			</div>
@@ -118,8 +136,39 @@
 function toggleBox(questionSection){
 	   questionSection.classList.toggle('opened');
 }
+
 function selectQuestion(buttonSelected, QID, Question) {
 	   $("#answerQuestion").html(Question);
+	   $("#addAnswer").find("#qid").val(QID);
+	   $("#addAnswer").find("#email").val(localStorage.getItem("email"));
+	   $("#addAnswer").find("#password").val(localStorage.getItem("password"));
+}
+
+function viewAllAnswer(viewAllEl, QID, Question) {
+	$("#allAnswerQuestion").html(Question);
+	$.ajax({
+		type: 'POST',
+		url: BASE_URL + '/dashboard',
+		data: {
+	    	email: localStorage.getItem("email"),
+	    	password: localStorage.getItem("password"),
+	    	purpose: "allAnswerQuestion",
+	    	qid: QID
+	    }
+	})
+	.done(function (result){
+		console.log(result);
+		$("#allAnswerQuestion").append();
+		const parent = $("#allAnswerModal").find(".modal-body");
+		result.forEach(function(El) {
+			const answerCredential = '<p class="answerCredential">' + El.name +' ( '+  El.role +' ) '+ ' | ' + El.writtenAt +'</p>';
+			const answerEl = '<div class="answerEl">'+ El.answer + answerCredential + '</div>';
+			parent.append(answerEl);
+		});
+	})
+	.fail(function (err){
+		console.log(err);
+	}); 
 }
 </script>
 </body>

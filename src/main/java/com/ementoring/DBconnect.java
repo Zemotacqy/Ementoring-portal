@@ -113,4 +113,34 @@ public class DBconnect {
 		}
 		return ansList;
 	}
+	
+	public void saveAnswer(String answer, int qid, String writerEmail) throws SQLException {
+		java.sql.Date sqlDate = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+		String query = "INSERT INTO Answers (writerEmail, qid, answer, writtenAt) VALUES ('"+ writerEmail +"', "+ qid +", '" + answer + "', '" + sqlDate + "')";
+		int status = st.executeUpdate(query);
+		System.out.println("New Answer added to database with status " + status);
+	}
+	
+	public ArrayList<AnswerQuestion> getAllAnswerQuestion(int QID) throws SQLException {
+		ArrayList<AnswerQuestion> ansQuesEl = new ArrayList<>();
+		try {
+			String query = "SELECT qid, askerEmail, question, createdAt, claps, aid, answer, writerEmail, writtenAt, name, role FROM (SELECT Questions.qid AS qid, userEmail AS askerEmail, question, createdAt, claps, aid, answer, writerEmail, writtenAt FROM Questions INNER JOIN Answers ON Questions.qid = Answers.qid AND Questions.qid = " + QID + ") AS QA INNER JOIN Users ON Users.email = QA.writerEmail";
+			rs = st.executeQuery(query);
+			System.out.println("Records from Answers and Questions table fetched: ");
+			if (!rs.isBeforeFirst() ) {    
+			    return ansQuesEl;
+			} 
+			while(rs.next()) {
+				AnswerQuestion El = new AnswerQuestion(rs.getInt("qid"), rs.getString("askerEmail"), rs.getString("question"), rs.getInt("claps"), rs.getInt("aid"), rs.getString("answer"), rs.getString("writerEmail"), rs.getString("name"), rs.getString("role"));
+				El.setWrittenAt((rs.getString("writtenAt").toString()));
+				El.setCreatedAt((rs.getString("createdAt").toString()));
+				ansQuesEl.add(El);
+			}
+		} catch(Exception ex) {
+			System.out.println("error: " + ex);
+		} finally {
+			if(rs != null) rs.close();
+		}
+		return ansQuesEl;
+	}
 }

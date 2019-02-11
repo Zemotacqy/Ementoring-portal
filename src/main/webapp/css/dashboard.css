@@ -159,9 +159,26 @@ body {
 .answer-credential {
 	font-size: 12px;
 	position: relative;
-	right: 4rem;
 }
 
 .writeAnswer {
 	margin-bottom: 1rem;
+}
+
+#viewAllAnswer {
+	display: flex;
+	justify-content: center;
+}
+
+.answerEl {
+	background-color: #BBC1C6;
+	text-align: left;
+	margin: 0.5rem 0;
+	border-radius: 5px;
+	padding: 1rem;
+}
+
+.answerCredential {
+	font-size: 10px;
+	margin: 0;
 }
