@@ -26,6 +26,7 @@
 			<ul class="sidebar-items">
 				<li class="active" id="sidebar-profile"><h6>Profile</h6></li>
 				<li id="sidebar-forum"><h6>Forum</h6></li>
+				<li id="sidebar-connect"><h6>Connect</h6></li>
 			</ul>
 		</div>
 		
@@ -126,6 +127,20 @@
 				</div>
 			</div>
 			<div class="questions-list text-center">
+			</div>
+		</section>
+		
+		<section id="connect">
+			<div class="connect-intro text-center">
+				<h3>Connect to Friends and Mentors</h3>
+				<button class="btn btn-success" id="find-people">Find New People</button>
+				<button class="btn btn-primary" id="see-connections">See YOur Connections</button>
+			</div>
+			<div class="show-people">
+				<ul class="people-lists">
+					<li><h4 class="colu1 text-center">S.No.</h4><h4 class="colu2">Name</h4><h4 class="colu3 text-center">Status</h4></li>
+					<hr class="first-hr"/>
+				</ul>
 			</div>
 		</section>
 	</main>

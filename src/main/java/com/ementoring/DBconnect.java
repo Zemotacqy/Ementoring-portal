@@ -42,7 +42,7 @@ public class DBconnect {
 	}
 	
 	public void saveUser(User user) throws SQLException {
-		String query = "INSERT INTO `Users` (`name`, `email`, `password`, `role`) VALUES ('" + user.getName() + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + user.getRole() + "')";
+		String query = "INSERT INTO `Users` (`name`, `email`, `password`, `role`, `UserDesc`) VALUES ('" + user.getName() + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + user.getRole() + "', '"+"')";
 		int status = st.executeUpdate(query);
 		System.out.println("User saved with status: " + status);
 	}
@@ -142,5 +142,26 @@ public class DBconnect {
 			if(rs != null) rs.close();
 		}
 		return ansQuesEl;
+	}
+	
+	public ArrayList<User> getAllPeople(String email) throws SQLException {
+		ArrayList<User> users = new ArrayList<>();
+		try {
+			String query = "SELECT Users.email AS email, Users.name AS name, Users.role AS userRole, Users.UserDesc as userDesc FROM Users INNER JOIN Connections ON Users.email != Connections.senderEmail AND Users.email != Connections.receiverEmail";
+			rs = st.executeQuery(query);
+			System.out.println("Records from Connections and Users table fetched: ");
+			if (!rs.isBeforeFirst() ) {    
+			    return users;
+			} 
+			while(rs.next()) {
+				User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("userDesc"), rs.getString("userRole"));
+				users.add(user);
+			}
+		} catch(Exception ex) {
+			System.out.println("error: " + ex);
+		} finally {
+			if(rs != null) rs.close();
+		}
+		return users;
 	}
 }

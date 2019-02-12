@@ -5,6 +5,7 @@ public class User {
 	private String email;
 	private String password;
 	private String role;
+	private String desc;
 	
 	public User(String name, String email, String password, String role) {
 		this.name = name;
@@ -48,6 +49,14 @@ public class User {
 	
 	public String getRole() {
 		return role;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 	
 	

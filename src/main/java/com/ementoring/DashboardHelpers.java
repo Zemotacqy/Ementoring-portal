@@ -78,4 +78,16 @@ public class DashboardHelpers {
 	    res.setCharacterEncoding("UTF-8");
 	    res.getWriter().write(json);
 	}
+	
+	public void getAllPeople(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		ArrayList<User> userList = db.getAllPeople(email);
+		if(userList.isEmpty()) {
+			User u = new User("", "", "", "");
+			userList.add(u);
+		} 
+		String json = new Gson().toJson(userList);
+		res.setContentType("application/json");
+	    res.setCharacterEncoding("UTF-8");
+	    res.getWriter().write(json);
+	}
 }

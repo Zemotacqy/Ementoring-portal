@@ -38,6 +38,7 @@ body {
 .sidebar-items li:active,
 .sidebar-items li.active {
 	background: #6999e5;
+	border-radius: 5px;
 }
 
 #profile {
@@ -182,3 +183,72 @@ body {
 	font-size: 10px;
 	margin: 0;
 }
+
+/* Connect to Friends and Mentors */
+#connect {
+	margin: 0 0 0 15rem;
+	padding: 0;
+	position: absolute;
+}
+
+.connect-intro {
+	margin: 1rem 1rem;
+	width: calc(100vw - 18rem);
+	border: 3px dashed black;	
+	padding: 2rem;
+	background: #FFF;
+}
+
+.show-people {
+	margin: 1rem 1rem;
+	width: calc(100vw - 18rem);
+	padding: 2rem;
+	background: #FFF;
+	border-radius: 10px;
+}
+
+.people-lists {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+}
+
+.people-lists li{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.people-lists li .colu1{
+	flex: 1;
+}
+
+.people-lists li .colu2{
+	flex: 5;
+}
+
+.people-lists li .colu3{
+	flex: 2;
+}
+
+.first-hr {
+	margin: 0 0 1rem 0;
+	padding: 0;
+	border: 1px solid #000;
+}
+
+.next-hr {
+	margin: 0 0;
+	padding: 0; 
+}
+
+
+
+
+
+
+
+
+
+
+

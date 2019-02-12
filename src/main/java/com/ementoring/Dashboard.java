@@ -46,6 +46,8 @@ public class Dashboard extends HttpServlet {
 							helper.addAnswer(req, res, email);
 						} else if(purpose.equals("allAnswerQuestion")) {
 							helper.viewAllAnswer(req, res, email);
+						} else if(purpose.equals("findPeople")) {
+							helper.getAllPeople(req, res, email);
 						}
 						
 					} else {

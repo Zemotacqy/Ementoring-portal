@@ -14,21 +14,37 @@ $( document ).ready(function() {
    
    $("#profile").show();
    $("#forum").hide();
+   $("#connect").hide();
    
    $("#sidebar-profile").on("click", (e) => {
 	   e.preventDefault();
 	   $("#profile").show();
 	   $("#forum").hide();
+	   $("#connect").hide();
 	   if(!$("#sidebar-profile").hasClass("active")) $("#sidebar-profile").addClass("active");
 	   while($("#sidebar-forum").hasClass("active")) $("#sidebar-forum").removeClass("active");
+	   while($("#sidebar-connect").hasClass("active")) $("#sidebar-connect").removeClass("active");
    });
    
    $("#sidebar-forum").on("click", (e) => {
 	  e.preventDefault();
 	  $("#profile").hide();
 	  $("#forum").show();
+	  $("#connect").hide();
 	  while($("#sidebar-profile").hasClass("active")) $("#sidebar-profile").removeClass("active");
+	  while($("#sidebar-connect").hasClass("active")) $("#sidebar-connect").removeClass("active");
 	  if(!$("#sidebar-forum").hasClass("active")) $("#sidebar-forum").addClass("active");
+   });
+   
+   $("#sidebar-connect").on("click", (e) => {
+	   console.log("f");
+	  e.preventDefault();
+	  $("#profile").hide();
+	  $("#forum").hide();
+	  $("#connect").show();
+	  while($("#sidebar-profile").hasClass("active")) $("#sidebar-profile").removeClass("active");
+	  while($("#sidebar-forum").hasClass("active")) $("#sidebar-forum").removeClass("active");
+	  if(!$("#sidebar-connect").hasClass("active")) $("#sidebar-connect").addClass("active");
    });
    
    $("#addQuestion").find("#email").val(email);
@@ -107,4 +123,60 @@ $( document ).ready(function() {
 	.fail(err => {
 	  console.log(err);
 	});   
+   
+   /* Manage People connectivity */
+   $("#find-people").on("click", (e) => {
+	   e.preventDefault();
+	   $.ajax({
+		   type: 'POST',
+		   url: BASE_URL + '/dashboard',
+		   data: {
+			   email: localStorage.getItem("email"),
+			   password: localStorage.getItem("password"),
+			   purpose: "findPeople"
+		   }
+	   })
+	   .done(result => {
+		   console.log(result);
+		   let userEl = '';
+		   result.map((user, index) => {
+			   console.log(user + " sd " + index);
+			   userEl = '<li><p class="colu1 text-center">'+ parseInt(index+1) +'</p><p class="colu2">'+ user.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + user.role +'</p></div></p><p class="colu3 text-center"><button type="button" class="btn btn-primary">Connect</button></p></li><hr class="next-hr"/>';
+			   $(".people-lists").append(userEl);
+		   });
+	   })
+	   .fail(err => {
+		   console.log(err);
+	   })
+   });
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 });
