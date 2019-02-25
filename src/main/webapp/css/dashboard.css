@@ -64,6 +64,37 @@ body {
 	flex: 1;
 }
 
+.userDesc {
+	flex: 1;
+	margin-left: auto;
+	display: flex;
+	justify-content: center;
+}
+
+.userDesc .user-desc-p {
+	flex: 1;
+}
+
+.user-desc-label {
+	margin: 0.5rem;
+}
+
+.userDesc button {
+	flex: 1;
+	padding: 0;
+}
+
+.action-userDesc {
+	margin: 0.5rem 0;
+	display: flex;
+	justify-content: space-around;
+}
+
+.action-userDesc input {
+	flex: 1;
+	margin: 0 0.5rem;
+}
+
 #forum {
 	margin: 0 0 0 15rem;
 	padding: 0;
@@ -221,14 +252,17 @@ body {
 
 .people-lists li .colu1{
 	flex: 1;
+	margin: 0.5rem 0;
 }
 
 .people-lists li .colu2{
 	flex: 5;
+	margin: 0.5rem 0;
 }
 
 .people-lists li .colu3{
 	flex: 2;
+	margin: 0.5rem 0;
 }
 
 .first-hr {
@@ -242,13 +276,55 @@ body {
 	padding: 0; 
 }
 
+.show-connections {
+	margin: 1rem 1rem;
+	width: calc(100vw - 18rem);
+	padding: 2rem;
+	background: #FFF;
+	border-radius: 10px;
+}
 
+.con-tab {
+	display: flex;
+	list-style: none;	
+}
 
+.con-tab li {
+	flex: 1;
+	padding: 1rem;
+	font-weight: bold;
+	font-size: 20px;
+}
 
+.con-tab li:hover,
+.con-tab li.active {
+	background: #96a6be;
+	border-radius: 5px; 
+	border-bottom: 2px solid #000;
+}
 
+/* Manage Connections with Friends and Mentors */
+#manage-connect {
+	margin: 0 0 0 15rem;
+	padding: 0;
+	position: absolute;
+}
 
+.manage-people {
+	margin: 1rem 1rem;
+	width: calc(100vw - 18rem);
+	padding: 2rem;
+	background: #FFF;
+	border-radius: 10px;
+}
 
+.manage-people-action {
+	margin: 0 0.5rem;
+}
 
+.connection-tab {
+	width: calc(100% - 1rem);
+}
 
 
 

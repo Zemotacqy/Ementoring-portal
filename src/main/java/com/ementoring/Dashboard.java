@@ -33,8 +33,11 @@ public class Dashboard extends HttpServlet {
 						req.setAttribute("email", user.get(0).getEmail());
 						req.setAttribute("password", user.get(0).getPassword());
 						req.setAttribute("role", user.get(0).getRole());
+						req.setAttribute("description", user.get(0).getDesc());
 						if(purpose.equals("login")) {
 							helper.login(req, res);
+						} else if(purpose.equals("userDesc")) {
+							helper.updateUserDesc(req, res, email);
 						} else if(purpose.equals("addQuestion")) {
 							helper.addQuestion(req, res, email);
 						} else if(purpose.equals("fetchQuestionList")) {
@@ -48,8 +51,16 @@ public class Dashboard extends HttpServlet {
 							helper.viewAllAnswer(req, res, email);
 						} else if(purpose.equals("findPeople")) {
 							helper.getAllPeople(req, res, email);
+						} else if(purpose.equals("connectPeople")) {
+							helper.connectPeople(req, res, email);
+						} else if(purpose.equals("seeConnections")) {
+							helper.seeConnections(req, res, email);
+						} else if(purpose.equals("getAllRequests")) {
+							helper.getAllRequests(req, res, email);
+						} else if(purpose.equals("manageRequest")) {
+							System.out.println("sdlkgdoighodrhgerhg");
+							helper.manageRequest(req, res, email);
 						}
-						
 					} else {
 						res.sendRedirect( BASE_URL + "/login");
 					}

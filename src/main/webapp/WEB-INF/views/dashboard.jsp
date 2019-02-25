@@ -14,10 +14,11 @@
 	<input type="hidden" value="${password}" id="hidden_password"/>
 	<input type="hidden" value="${email}" id="hidden_email"/>
 	<input type="hidden" value="${role}" id="hidden_role"/>
+	<input type="hidden" value="${description}" id="hidden_desc"/>
 	<header class="header_top">
 		<h1>E-Mentoring</h1>
 		<ul class="header_items">
-			<li>Options</li>
+			<li id="nav-email"></li>
 		</ul>
 	</header>
 	<br>
@@ -27,6 +28,7 @@
 				<li class="active" id="sidebar-profile"><h6>Profile</h6></li>
 				<li id="sidebar-forum"><h6>Forum</h6></li>
 				<li id="sidebar-connect"><h6>Connect</h6></li>
+				<li id="sidebar-manage-connect"><h6>Manage Connections</h6></li>
 			</ul>
 		</div>
 		
@@ -42,6 +44,13 @@
 				<div class="profile-item-group">
 					<p>Role </p>
 					<p>${role} </p>
+				</div>
+				<div class="profile-item-group">
+					<p class="user-desc-label">User Description </p>
+					<div class="userDesc">
+						<p class="user-desc-p">${description} </p>
+						<button type="button" class="btn btn-success btn-sm">Edit</button>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -134,11 +143,32 @@
 			<div class="connect-intro text-center">
 				<h3>Connect to Friends and Mentors</h3>
 				<button class="btn btn-success" id="find-people">Find New People</button>
-				<button class="btn btn-primary" id="see-connections">See YOur Connections</button>
+				<button class="btn btn-primary" id="see-connections">See Your Connections</button>
 			</div>
 			<div class="show-people">
 				<ul class="people-lists">
 					<li><h4 class="colu1 text-center">S.No.</h4><h4 class="colu2">Name</h4><h4 class="colu3 text-center">Status</h4></li>
+					<hr class="first-hr"/>
+				</ul>
+			</div>
+			<div class="show-connections">
+				<ul class="con-tab text-center">
+					<li id="con-tab-student">Students</li>
+					<li id="con-tab-mentor">Mentors</li>
+				</ul>
+				<div class="show-people connection-tab">
+					<ul class="people-lists">
+						<li><h4 class="colu1 text-center">S.No.</h4><h4 class="colu2">Name</h4><h4 class="colu3 text-center">Status</h4></li>
+						<hr class="first-hr"/>
+					</ul>
+				</div>
+			</div>
+		</section>
+		
+		<section id="manage-connect">
+			<div class="manage-people">
+				<ul class="people-lists">
+					<li><h4 class="colu1 text-center">S.No.</h4><h4 class="colu2">Name</h4><h4 class="colu3 text-center">Action</h4></li>
 					<hr class="first-hr"/>
 				</ul>
 			</div>

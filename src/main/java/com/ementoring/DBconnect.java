@@ -31,6 +31,7 @@ public class DBconnect {
 			System.out.println("Records from User table Fetched :");
 			while(rs.next()) {
 				User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("role"));
+				user.setDesc(rs.getString("UserDesc"));
 				userList.add(user);
 			}
 		} catch(Exception ex) {
@@ -39,6 +40,12 @@ public class DBconnect {
 	        if(rs != null) rs.close();
 	    }
 		return userList;
+	}
+	
+	public void updateUserDesc(String desc, String email) throws SQLException {
+		String query = "UPDATE Users SET UserDesc = '"+ desc +"' WHERE email='" + email + "'";
+		int status = st.executeUpdate(query);
+		System.out.println("User Desc updated with status: " + status);
 	}
 	
 	public void saveUser(User user) throws SQLException {
@@ -50,11 +57,13 @@ public class DBconnect {
 	public ArrayList<User> getUserInfo(String email) throws SQLException {
 		ArrayList<User> userList = new ArrayList<>();
 		try {
-			String query = "SELECT * from Users WHERE email LIKE '" + email + "'";
+			String query = "SELECT * from Users WHERE email = '" + email + "'";
 			rs = st.executeQuery(query);
 			System.out.println("Records from User table Fetched :");
 			while(rs.next()) {
 				User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("role"));
+				user.setDesc(rs.getString("UserDesc")); 
+				System.out.println(user.getDesc());
 				userList.add(user);
 			}
 		} catch(Exception ex) {
@@ -76,6 +85,7 @@ public class DBconnect {
 		ArrayList<Question> quesList = new ArrayList<>();
 		try {
 			String query = "SELECT * from Questions";
+
 			rs = st.executeQuery(query);
 			System.out.println("Records from Question table Fetched :");
 			while(rs.next()) {
@@ -147,7 +157,8 @@ public class DBconnect {
 	public ArrayList<User> getAllPeople(String email) throws SQLException {
 		ArrayList<User> users = new ArrayList<>();
 		try {
-			String query = "SELECT Users.email AS email, Users.name AS name, Users.role AS userRole, Users.UserDesc as userDesc FROM Users INNER JOIN Connections ON Users.email != Connections.senderEmail AND Users.email != Connections.receiverEmail";
+			System.out.println(email);
+			String query = "Select DISTINCT Users.email as email, name, role as userRole, UserDesc as userDesc from Users, (Select t1.email from (Select email from Users WHERE email != ALL (SELECT senderEmail from Connections where senderEmail='"+email+"' OR receiverEmail='"+email+"')) as t1, (Select email from Users WHERE email != ALL (SELECT receiverEmail from Connections where senderEmail='" + email + "' OR receiverEmail='"+ email +"')) as t2 where t1.email=t2.email) as ul where ul.email = Users.email";               
 			rs = st.executeQuery(query);
 			System.out.println("Records from Connections and Users table fetched: ");
 			if (!rs.isBeforeFirst() ) {    
@@ -164,4 +175,70 @@ public class DBconnect {
 		}
 		return users;
 	}
+	
+	public void connectPeople(String senderEmail, String receiverEmail) throws SQLException {
+		try {
+			String query = "INSERT INTO Connections (senderEmail, senderName, senderRole, senderDesc, receiverEmail, receiverName, receiverRole, receiverDesc, status) SELECT *, 'sent' FROM (Select email AS SenderEmail, name AS SenderName, role AS SenderRole, UserDesc AS senderDesc FROM Users Where email = '"+ senderEmail +"') as t1, (Select email AS receiverEmail, name AS receiverName, role AS receiverRole, UserDesc AS receiverDesc FROM Users Where email = '"+ receiverEmail +"') as t2";
+			int status = st.executeUpdate(query);
+			System.out.println("Connection made with status: " + status);
+		} catch(Exception ex) {
+			System.out.println("error: " +ex);
+		}
+	}
+	
+	public ArrayList<User> getAllConnections(String email, String conRole) throws SQLException {
+		ArrayList<User> users = new ArrayList<>();
+		try {
+			System.out.println(email);
+			String query = "Select receiverEmail as email, receiverName as name, receiverRole as role, receiverDesc as description from Connections where senderEmail='" + email + "' AND status='accepted' AND receiverRole='" + conRole + "' UNION ALL Select senderEmail as email, senderName as name, senderRole as role, senderDesc as description from Connections where receiverEmail='" + email + "' AND status='accepted' AND SenderRole='" + conRole + "';";               
+			rs = st.executeQuery(query);
+			System.out.println("Records from Connections Fetched and returned all Students: ");
+			if (!rs.isBeforeFirst() ) {    
+			    return users;
+			} 
+			while(rs.next()) {
+				User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("description"), rs.getString("role"));
+				users.add(user);
+			}
+		} catch(Exception ex) {
+			System.out.println("error: " + ex);
+		} finally {
+			if(rs != null) rs.close();
+		}
+		return users;
+	}
+	
+	public ArrayList<User> getAllRequests(String email) throws SQLException {
+		ArrayList<User> users = new ArrayList<>();
+		try {
+			String query = "SELECT senderEmail as email, senderName as name, senderRole as role, senderDesc as description from Connections where receiverEmail = '" + email + "' and status = 'sent'";               
+			rs = st.executeQuery(query);
+			System.out.println("Records from Connections Fetched All requests Presented: ");
+			if (!rs.isBeforeFirst() ) {    
+			    return users;
+			} 
+			while(rs.next()) {
+				System.out.println(rs.getString("email"));
+				User user = new User(rs.getString("name"), rs.getString("email"), rs.getString("description"), rs.getString("role"));
+				users.add(user);
+			}
+		} catch(Exception ex) {
+			System.out.println("error: " + ex);
+		} finally {
+			if(rs != null) rs.close();
+		}
+		return users;
+	}
+	
+	public void managePeople(String sentBy, String receivedBy, String action) throws SQLException {
+		try {
+			String query = "update  Connections set status='" + action + "' where senderEmail='" + sentBy + "' and receiverEmail='" + receivedBy + "'";
+			int status = st.executeUpdate(query);
+			System.out.println("Connection managed made with status: " + status);
+		} catch(Exception ex) {
+			System.out.println("error: " +ex);
+		}
+	}
 }
+
+

@@ -90,4 +90,49 @@ public class DashboardHelpers {
 	    res.setCharacterEncoding("UTF-8");
 	    res.getWriter().write(json);
 	}
+	
+	public void updateUserDesc(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		String desc = req.getParameter("userDescription");
+		db.updateUserDesc(desc, email);
+		req.getRequestDispatcher("WEB-INF/views/dashboard.jsp").forward(req, res);
+	}
+	
+	public void connectPeople(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		String receiverEmail = req.getParameter("sentTo");
+		db.connectPeople(email, receiverEmail);
+		req.getRequestDispatcher("WEB-INF/views/dashboard.jsp").forward(req, res);
+	}
+	
+	public void seeConnections(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		String findRole = req.getParameter("findRole");
+		ArrayList<User> userList = db.getAllConnections(email, findRole);
+		if(userList.isEmpty()) {
+			User u = new User("", "", "", "");
+			userList.add(u);
+		} 
+		String json = new Gson().toJson(userList);
+		res.setContentType("application/json");
+	    res.setCharacterEncoding("UTF-8");
+	    res.getWriter().write(json);
+	}
+	
+	public void getAllRequests(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		ArrayList<User> userList = db.getAllRequests(email);
+		if(userList.isEmpty()) {
+			User u = new User("", "", "", "");
+			userList.add(u);
+		} 
+		String json = new Gson().toJson(userList);
+		res.setContentType("application/json");
+	    res.setCharacterEncoding("UTF-8");
+	    res.getWriter().write(json);
+	}
+	
+	public void manageRequest(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		System.out.println("hello worldlkdjfkl");
+		String toApprove = req.getParameter("toApprove");
+		String action = req.getParameter("action");
+		db.managePeople(toApprove, email, action);
+		req.getRequestDispatcher("WEB-INF/views/dashboard.jsp").forward(req, res);
+	}
 }
