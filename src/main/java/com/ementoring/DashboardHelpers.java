@@ -129,10 +129,63 @@ public class DashboardHelpers {
 	}
 	
 	public void manageRequest(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
-		System.out.println("hello worldlkdjfkl");
 		String toApprove = req.getParameter("toApprove");
 		String action = req.getParameter("action");
 		db.managePeople(toApprove, email, action);
 		req.getRequestDispatcher("WEB-INF/views/dashboard.jsp").forward(req, res);
 	}
+	
+	public void addMessage(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		String sentTo = req.getParameter("sendTo");
+		String message = req.getParameter("message");
+		db.addMessage(email, sentTo, message);
+		req.getRequestDispatcher("WEB-INF/views/dashboard.jsp").forward(req, res);
+	}
+	
+	public void getAllMessages(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		String sentBy = req.getParameter("sentBy");
+		ArrayList<Messages> messages = db.getAllMessages(email, sentBy);
+		if(messages.isEmpty()) {
+			Messages m = new Messages(-1, "", "", "");
+			messages.add(m);
+		} 
+		String json = new Gson().toJson(messages);
+		res.setContentType("application/json");
+	    res.setCharacterEncoding("UTF-8");
+	    res.getWriter().write(json);
+	}
+	
+	public void getAllUnis(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		ArrayList<Universities> unis = db.getAllUnis();
+		if(unis.isEmpty()) {
+			Universities u = new Universities(-1, "");
+			unis.add(u);
+		} 
+		String json = new Gson().toJson(unis);
+		res.setContentType("application/json");
+	    res.setCharacterEncoding("UTF-8");
+	    res.getWriter().write(json);
+	}
+	
+	public void referUni(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		System.out.println("Referring universities");
+		int uid = Integer.parseInt(req.getParameter("uid"));
+		String referTo = req.getParameter("referTo");
+		String referByName = req.getParameter("referByName");
+		db.referUni(uid, referTo, email, referByName);
+		req.getRequestDispatcher("WEB-INF/views/dashboard.jsp").forward(req, res);
+	}
+	
+	public void getAllRefers(HttpServletRequest req, HttpServletResponse res, String email) throws ServletException, IOException, SQLException {
+		ArrayList<Refers> refers = db.getAllRefers(email);
+		if(refers.isEmpty()) {
+			Refers r = new Refers(-1, "", "", "", "");
+			refers.add(r);
+		} 
+		String json = new Gson().toJson(refers);
+		res.setContentType("application/json");
+	    res.setCharacterEncoding("UTF-8");
+	    res.getWriter().write(json);
+	}
+	
 }

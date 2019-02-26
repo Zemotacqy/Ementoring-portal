@@ -19,6 +19,7 @@
 		<h1>E-Mentoring</h1>
 		<ul class="header_items">
 			<li id="nav-email"></li>
+			<li id="nav-logout"><button class="btn btn-danger">Logout</button></li>
 		</ul>
 	</header>
 	<br>
@@ -29,6 +30,8 @@
 				<li id="sidebar-forum"><h6>Forum</h6></li>
 				<li id="sidebar-connect"><h6>Connect</h6></li>
 				<li id="sidebar-manage-connect"><h6>Manage Connections</h6></li>
+				<li id="sidebar-inbox"><h6>Message Inbox</h6></li>
+				<li id="sidebar-refers"><h6>Universities and Referrals</h6></li>
 			</ul>
 		</div>
 		
@@ -169,6 +172,110 @@
 			<div class="manage-people">
 				<ul class="people-lists">
 					<li><h4 class="colu1 text-center">S.No.</h4><h4 class="colu2">Name</h4><h4 class="colu3 text-center">Action</h4></li>
+					<hr class="first-hr"/>
+				</ul>
+			</div>
+		</section>
+		
+		<section id="inbox">
+			<div class="inbox-people">
+				<ul class="people-lists">
+					<li><h4 class="colu1 text-center">S.No.</h4><h4 class="colu2">Name</h4><h4 class="colu3 text-center">Options</h4></li>
+					<hr class="first-hr"/>
+				</ul>
+			</div>
+			<!-- Add New Message Modal -->
+				<div class="modal fade" id="addMessageModal" tabindex="-1" role="dialog" aria-labelledby="MessageModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="MessageModalLabel">Enter your new Message here:</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <form action="/dashboard" method="post" id="sendMessage">
+					      <div class="modal-body">
+								<div><label for="messageLabel" id="AddMessageLabel" class="text-center"></label></div>
+								<div class="textarea-message"><textarea placeholder="Enter Your Message" rows="5" cols="50" name="message" id="message" required></textarea></div>
+								<input type="hidden" name="email" id="email"></input>
+								<input type="hidden" name="password" id="password"></input>
+								<input type="hidden" name="purpose" id="purpose" value="addMessage"></input>
+								<input type="hidden" name="sendTo" id="sendTo"></input>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					        <input type="submit" class="btn btn-primary" value="Send Message"/>
+					      </div>
+				      </form>
+				    </div>
+				  </div>
+				</div>
+			
+			<!-- View All Messages Modal -->
+				<div class="modal fade" id="viewMessages" tabindex="-1" role="dialog" aria-labelledby="viewMessageModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-lg" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="viewMessageModalLabel">Messages</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				      	<!-- Display all the messages here -->
+				      	<div class="message-items">
+				      		<div class="msg-item">
+				      			<p>No Messages To Show</p>
+				      		</div>
+				      	</div>
+				      </div>
+				      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					  </div>
+				    </div>
+				  </div>
+				</div>
+		</section>
+		
+		<section id="refers">
+			<div class="refers-unis">
+				<ul class="people-lists">
+					<li><h6 class="colu1 text-center">S.No.</h6><h4 class="colu2">University Name</h4><h5 class="colu3 text-center">Recommendations</h5></li>
+					<hr class="first-hr"/>
+				</ul>
+			</div>
+			<!-- Refer university Modal -->
+				<div class="modal fade" id="referUni" tabindex="-1" role="dialog" aria-labelledby="referUniLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="referUniLabel">Refer University</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <form action="/dashboard" method="post" id="referUniModal">
+					      <div class="modal-body">
+								<div><label for="messageLabel" id="AddMessageLabel" class="text-center">Enter Email Id (to the one you are referring)</label></div>
+								<input class="form-control" type="email" name="referTo" id="referTo"></input>
+								<input type="hidden" name="email" id="email"></input>
+								<input type="hidden" name="password" id="password"></input>
+								<input type="hidden" name="purpose" id="purpose" value="referUni"></input>
+								<input type="hidden" name="referByName" id="referByName"></input>
+								<input type="hidden" name="uid" id="uid"></input>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					        <input type="submit" class="btn btn-primary" value="Refer University"/>
+					      </div>
+				      </form>
+				    </div>
+				  </div>
+				</div>
+			<div class="unis-list">
+				<ul class="uni-lists">
+					<li><h6 class="colu1 text-center">S.No.</h6><h4 class="colu2">University Name</h4></li>
 					<hr class="first-hr"/>
 				</ul>
 			</div>

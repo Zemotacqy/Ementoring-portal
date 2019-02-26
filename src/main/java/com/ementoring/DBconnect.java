@@ -239,6 +239,90 @@ public class DBconnect {
 			System.out.println("error: " +ex);
 		}
 	}
+	
+	public void addMessage(String sentBy, String sentTo, String message) throws SQLException {
+		try {
+			String query = "INSERT INTO Messages(sentBy, message, sentTo) VALUES('" + sentBy + "', '" + message + "', '" + sentTo + "')";
+			int status = st.executeUpdate(query);
+			System.out.println("Message Saved with status: " + status);
+		} catch(Exception ex) {
+			System.out.println("error: " +ex);
+		}
+	}
+	
+	public ArrayList<Messages> getAllMessages(String sentTo, String sentBy) throws SQLException {
+		ArrayList<Messages> messages = new ArrayList<>();
+		try {
+			String query = "Select * from Messages where (sentBy='" + sentBy + "' and sentTo='" + sentTo + "') or (sentBy='" + sentTo + "' and sentTo='" + sentBy + "') order by mid";               
+			rs = st.executeQuery(query);
+			System.out.println("Records from Messages Fetched: ");
+			if (!rs.isBeforeFirst() ) {    
+			    return messages;
+			} 
+			while(rs.next()) {
+				Messages message = new Messages(rs.getInt("mid"), rs.getString("sentBy"), rs.getString("sentTo"), rs.getString("message"));
+				messages.add(message);
+			}
+		} catch(Exception ex) {
+			System.out.println("error: " + ex);
+		} finally {
+			if(rs != null) rs.close();
+		}
+		return messages;
+	}
+	
+	public ArrayList<Universities> getAllUnis() throws SQLException {
+		ArrayList<Universities> unis = new ArrayList<>();
+		try {
+			String query = "Select * from Universities";               
+			rs = st.executeQuery(query);
+			System.out.println("Records from Universities Fetched: ");
+			if (!rs.isBeforeFirst() ) {    
+			    return unis;
+			} 
+			while(rs.next()) {
+				Universities uni = new Universities(rs.getInt("uid"), rs.getString("uname"));
+				unis.add(uni);
+			}
+		} catch(Exception ex) {
+			System.out.println("error: " + ex);
+		} finally {
+			if(rs != null) rs.close();
+		}
+		return unis;
+	}
+	
+	public void referUni(int uid, String referTo, String referByEmail, String referByName) throws SQLException {
+		try {
+			String query = "INSERT INTO Urefers(uid, referTo, referByEmail, referByName) VALUES(" + uid + ",'" + referTo + "', '" + referByEmail + "', '" + referByName + "')";
+			int status = st.executeUpdate(query);
+			System.out.println("University Referred with status: " + status);
+		} catch(Exception ex) {
+			System.out.println("error: " +ex);
+		}
+	}
+	
+	public ArrayList<Refers> getAllRefers(String email) throws SQLException {
+		ArrayList<Refers> refers = new ArrayList<>();
+		try {
+			String query = "SELECT Universities.uid as uid, Universities.uname as uname, Urefers.referTo as referTo, Urefers.referByEmail as referByEmail, Urefers.referByName as referByName from Universities,Urefers where Urefers.uid = Universities.uid and referTo = '" + email + "'";               
+			rs = st.executeQuery(query);
+			System.out.println("Records from Refers of Universities Fetched: ");
+			if (!rs.isBeforeFirst() ) {    
+			    return refers;
+			} 
+			while(rs.next()) {
+				Refers r = new Refers(rs.getInt("uid"), rs.getString("uname"), rs.getString("referTo"), rs.getString("referByEmail"), rs.getString("referByName"));
+				refers.add(r);
+			}
+		} catch(Exception ex) {
+			System.out.println("error: " + ex);
+		} finally {
+			if(rs != null) rs.close();
+		}
+		return refers;
+	}
+	
 }
 
 

@@ -58,8 +58,17 @@ public class Dashboard extends HttpServlet {
 						} else if(purpose.equals("getAllRequests")) {
 							helper.getAllRequests(req, res, email);
 						} else if(purpose.equals("manageRequest")) {
-							System.out.println("sdlkgdoighodrhgerhg");
 							helper.manageRequest(req, res, email);
+						} else if(purpose.equals("addMessage")) {
+							helper.addMessage(req, res, email);
+						} else if(purpose.equals("viewAllMessages")) {
+							helper.getAllMessages(req, res, email);
+						} else if(purpose.equals("getAllUnis")) {
+							helper.getAllUnis(req, res, email);
+						} else if(purpose.equals("referUni")) {
+							helper.referUni(req, res, email);
+						} else if(purpose.equals("getAllRefers")) {
+							helper.getAllRefers(req, res, email);
 						}
 					} else {
 						res.sendRedirect( BASE_URL + "/login");

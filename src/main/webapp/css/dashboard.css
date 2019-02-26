@@ -326,5 +326,97 @@ body {
 	width: calc(100% - 1rem);
 }
 
+/* handle Message inbox */
+
+#inbox {
+	margin: 0 0 0 15rem;
+	padding: 0;
+	position: absolute;
+}
+
+.inbox-people {
+	margin: 1rem 1rem;
+	width: calc(100vw - 18rem);
+	padding: 2rem;
+	background: #FFF;
+	border-radius: 10px;
+}
+
+.vdots-img {
+	height: 2rem;
+	padding: 0.5rem 0.1rem;
+	margin: 0 0.5rem;
+}
+
+.vdots-img:hover,
+.vdots-img:active {
+	background-color: #A0A0A0;
+	padding: 0.5rem 0.1rem;
+	margin: 0 0.5rem;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.msg-item {
+	background-color: #222222;
+	border-radius: 10px;
+	padding: 0.5rem 1rem;
+	margin: 1rem 0;	
+	color: #FFF;
+}
+
+/* handle Refers Section */
+
+#refers {
+	margin: 0 0 0 15rem;
+	padding: 0;
+	position: absolute;
+}
+
+.refers-unis {
+	margin: 1rem 1rem;
+	width: calc(100vw - 18rem);
+	padding: 2rem;
+	background: #FFF;
+	border-radius: 10px;
+}
+
+.unis-list {
+	margin: 1rem 1rem;
+	width: calc(100vw - 18rem);
+	padding: 2rem;
+	background: #FFF;
+	border-radius: 10px;
+}
+
+.uni-lists {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+}
+
+.uni-lists li{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.uni-lists li .colu1{
+	flex: 1;
+	margin: 0.5rem 0;
+}
+
+.uni-lists li .colu2{
+	flex: 5;
+	margin: 0.5rem 0;
+}
+
+
+
+
+
+
+
+
 
 
