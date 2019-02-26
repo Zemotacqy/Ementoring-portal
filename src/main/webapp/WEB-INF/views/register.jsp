@@ -14,7 +14,7 @@
 	<header class="header_top">
 		<h1>E-Mentoring</h1>
 		<ul class="header_items">
-			<li>Option</li>
+			<li>Welcome</li>
 		</ul>
 	</header>
 	<br>

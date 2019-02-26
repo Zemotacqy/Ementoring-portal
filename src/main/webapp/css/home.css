@@ -12,3 +12,62 @@ body {
 .main-content {
 	margin: 3.5rem 0 0 0;
 }
+
+/* Landing page */
+.img-first {
+	width: 100%;
+	height: auto;
+
+}
+
+.head-cont {
+	background-color: #510d51;
+	margin: 0 1rem;
+	padding: 0.5rem;
+}
+
+.head-line {
+	font-weight: bold;
+	font-size: 50px;
+	color: #FFF;	
+}
+
+.feature-cont {
+	background: #FFF;
+}
+
+.flex-feature {
+	display: flex;
+	justify-content: space-between;
+	
+}
+
+.features {
+	flex: 1;
+}
+
+.features ul li {
+	font-size: 25px;
+	margin: 1rem 0;
+}
+
+.feature-img {
+	flex: 2;
+}
+
+footer {
+	background-color: #000;
+	color: #FFF;
+	margin: 0.5rem 0;
+}
+
+
+
+
+
+
+
+
+
+
+
