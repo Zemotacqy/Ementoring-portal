@@ -125,8 +125,9 @@ $( document ).ready(function() {
 			   console.log(result);
 			   $(".people-lists").html('');
 			   $(".show-connections").find('.show-people').show();
-			   if(result.length<=0){
-				   $(".people-lists").html('<h3 class="text-center">No Mentors Available</h3>');
+			   if(result.length<=1 && result[0].name==""){
+				   $(".people-lists").html('<h3 class="text-center">No Requests Pending</h3>');
+				   return;
 			   }
 			   const defaultList = '<li><h4 class="colu1 text-center">S.No.</h4><h4 class="colu2">Name</h4><h4 class="colu3 text-center">Status</h4></li><hr class="first-hr"/>';
 			   $(".people-lists").html(defaultList);
@@ -150,8 +151,9 @@ $( document ).ready(function() {
 				   console.log("Student ka " + result);
 				   console.log(result);
 				   $(".show-connections").find('.show-people').show();
-				   if(result.length<=0){
-					   $(".people-lists").html('<h3 class="text-center">No Student Available</h3>');
+				   if(result.length<=1 && result[0].name==""){
+					   $(".people-lists").html('<h3 class="text-center">No Requests Pending</h3>');
+					   return;
 				   }
 				   const defaultList = '<li><h4 class="colu1 text-center">S.No.</h4><h4 class="colu2">Name</h4><h4 class="colu3 text-center">Options</h4></li><hr class="first-hr"/>';
 				   $(".people-lists").html(defaultList);
@@ -239,7 +241,7 @@ $( document ).ready(function() {
 	   .done(result => {
 		   console.log("Manage Connections");
 		   console.log(result);
-		   if(result.length==1 && result[0].name==""){
+		   if(result.length<=1 && result[0].name==""){
 			   $(".people-lists").html('<h3 class="text-center">Nothing to Show</h3>');
 			   return;
 		   }
@@ -325,6 +327,35 @@ $( document ).ready(function() {
 				   $("#referUniModal").find("#referByName").val(localStorage.getItem("name"));
 				   $("#referUniModal").find("#uid").val(localStorage.getItem("University")); 
 			   });
+			// show Universities
+				  $.ajax({
+					  type: 'POST',
+					  url: BASE_URL + '/dashboard',
+					  data: {
+						  email: localStorage.getItem("email"),
+						  password: localStorage.getItem("password"),
+						  purpose: "getAllUnis",
+					  }
+				  })
+				  .done((result) => {
+					  console.log(result);
+					  $(".uni-lists").html('');
+					  if(result.length<=1 && result[0].uid==0){
+						   $(".uni-lists").html('<h3 class="text-center">No Universities Available</h3>');
+						   return;
+					   }
+					   const defaultList = '<li><h6 class="colu1 text-center">S.No.</h6><h4 class="colu2">Name of University</h4></li><hr class="first-hr"/>';
+					   $(".uni-lists").html(defaultList);
+					   let userEl = '';
+					   result.map((user, index) => {
+						   const del = '"';
+						   userEl = '<li><p class="colu1 text-center">'+ parseInt(index+1) +'</p><p class="colu2">'+ user.uname + '</p></li><hr class="next-hr"/>';
+						   $(".uni-lists").append(userEl);
+					   });
+				  })
+				  .fail(err => {
+					   console.log(err);
+				   });
 		  })
 		  .fail(err => {
 			   console.log(err);
