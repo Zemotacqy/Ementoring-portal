@@ -14,7 +14,7 @@ An E-mentoring portal for women. A seperate social group for mentors and student
 ---
 
 ## How to run?
-* Refer this tutorial to setup the eclipse environment. 
+* Refer [this](https://www.youtube.com/watch?v=Vvnliarkw48) tutorial to setup the eclipse environment. 
 * To setup the database run the [sql script](https://github.com/Zemotacqy/Ementoring-portal/blob/master/db.sql). 
 * Run the project using Tomcat server.
 
